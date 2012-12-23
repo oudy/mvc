@@ -1,0 +1,126 @@
+﻿<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>模拟比赛后台管理</title>
+<style type="text/css">
+<!--
+body {
+	margin-left: 0px;
+	margin-top: 0px;
+	margin-right: 0px;
+	margin-bottom: 0px;
+	overflow:hidden;
+}
+.STYLE3 {
+	font-size: 12px;
+	color: #adc9d9;
+}
+-->
+</style>
+</head>
+
+<body>
+<table width="100%"  height="100%" border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td bgcolor="#1075b1">&nbsp;</td>
+  </tr>
+  <tr>
+    <td height="608" background="/static/image/login_03.gif"><table width="847" border="0" align="center" cellpadding="0" cellspacing="0">
+        <tr>
+          <td height="208" background="/static/image/login_04.gif">&nbsp;</td>
+        </tr>
+        <tr>
+          <td height="84"><table width="100%" border="0" cellspacing="0" cellpadding="0">
+              <tr>
+                <td width="200" height="84" background="/static/image/login_06.gif">&nbsp;</td>
+                <td width="406" height="193" background="/static/image/images_08.jpg"><table width="100%" border="0" cellspacing="0" cellpadding="0">
+                    <tr>
+                      <td>&nbsp;</td>
+                      <td>&nbsp;</td>
+                      <td>&nbsp;</td>
+                    </tr>
+                    <tr>
+                      <td align="right" style="color:#adc9d9; font-size:14px">用户：</td>
+                      <td style="padding:2px; width:195px"><input tabindex="1" type="text" name="username" id="username" style="width:182px; height:26px; line-height:26px; background-color:#87adbf; border:solid 1px #153966; font-size:12px; color:#283439; "></td>
+                      <td rowspan="2"><label>
+                          <input style="background:url(/static/image/bottom.jpg); cursor:pointer; width:75px; height:61px; margin:0; padding:0; border:0" type="button" name="button" id="submitBtn" value="">
+                        </label></td>
+                    </tr>
+                    <tr>
+                      <td align="right" style="color:#adc9d9; font-size:14px">密码：</td>
+                      <td style="padding:2px"><input tabindex="2" type="password" name="password" id="password" style="width:182px; height:26px; line-height:26px; background-color:#87adbf; border:solid 1px #153966; font-size:12px; color:#283439; "></td>
+                    </tr>
+                    <tr>
+                      <td>&nbsp;</td>
+                      <td colspan="2" style="color:#FFF; padding:6px 0 0 2px; font-size:12px"><img src="/static/image/js.gif" />&nbsp;每天登陆失败超过3次,请联系管理员!</td>
+                    </tr>
+                  </table></td>
+                <td ></td>
+                <td>&nbsp;</td>
+                <td >&nbsp;</td>
+              </tr>
+            </table></td>
+        </tr>
+        <tr>
+          <td height="206" background="/static/image/login_11.gif">&nbsp;</td>
+        </tr>
+    </table></td>
+  </tr>
+  <tr>
+    <td bgcolor="#152753">&nbsp;</td>
+  </tr>
+</table>
+<script language="javascript" src="/static/js/jquery-1.7.min.js"></script> 
+<script type="text/javascript" src="/static/js/common.js"></script> 
+<script>
+$(function(){
+	$("#username").focus();
+	$('#submitBtn').click(function(){
+		login();
+	})
+	
+	$('#username,#password').keydown(function(e){
+	  if(e.keyCode==13){
+		 login();
+	  }
+	}); 
+	
+});
+function login(){
+	var username = $("#username").val();
+	username = $.trim(username);
+	var password = $("#password").val();
+	password = $.trim(password);
+    if($.g.getWordsLen(username)<=0){
+		alert('请填写用户名');
+		$("#username").focus();
+		return false;
+	}
+    if($.g.getWordsLen(password)<=0){
+		alert('请填写密码');
+		$("#password").focus();
+		return false;
+	}
+	var data = {};
+	data.username = username;
+	data.password = password;
+	data.method = 'login';
+    // 转成字符串
+    data = $.param(data);
+    $.ajax({
+        type: "POST",
+        url: "/login/index/login",
+        data: data,
+        success: function (json) {
+            if (json.success==true) {
+                window.location.href = '/';
+            }else{
+				alert(json.msg);
+			}
+        }
+    });
+	return false;
+}
+</script>
+</body>
+</html>

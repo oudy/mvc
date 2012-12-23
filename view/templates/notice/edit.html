@@ -1,0 +1,119 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>无标题文档</title>
+<link href="/static/css/right.css" rel="stylesheet" type="text/css" />
+<link rel="stylesheet" type="text/css" href="/static/css/checkform.css"  />
+<script type="text/javascript" src="/static/fckeditor/fckeditor.js"></script>
+<script type="text/javascript">
+var oFCKeditor = new FCKeditor( 'FCKeditor1' ) ;
+oFCKeditor.BasePath	= '/static/fckeditor/' ;
+oFCKeditor.Height	= 300 ;
+oFCKeditor.Value	= '<?php echo $rsNotice["content"];?>' ;
+</script> 
+</head>
+
+<body>
+<table  width="100%" border="0" cellpadding="0" cellspacing="0">
+  <tr>
+    <td height="30"><table width="100%" border="0" cellspacing="0" cellpadding="0">
+      <tr>
+        <td height="24" background="/static/image/t_bg.gif" class="STYLE1"><table width="100%" border="0" cellspacing="0" cellpadding="0">
+          <tr>
+            <td><table width="100%" border="0" cellspacing="0" cellpadding="0">
+              <tr>
+                <td width="6%" height="19" valign="bottom"><div class="t_c"><img src="/static/image/tb.gif" width="14" height="14" /></div></td>
+                <td width="94%" valign="bottom"><span class="STYLE1">添加公告</span></td>
+              </tr>
+            </table></td>
+            <td><div align="right"></div></td>
+          </tr>
+        </table></td>
+      </tr>
+    </table></td>
+  </tr>
+  <tr>
+    <td>
+<form id="appForm" action="/notice/index/edit" method="post" >
+    <table class="table table1" width="100%" border="0" cellpadding="0" cellspacing="1"  >
+  <tr>
+    <td  align="right"><strong>标题</strong>：</td>
+    <td >&nbsp;<input name="title" type="text" id="title" maxlength="100" value="<?php echo $rsNotice['title'];?>" >&nbsp;&nbsp;</td>
+  </tr>
+    <tr>
+    <td  align="right"><strong>时间</strong>：</td>
+    <td >&nbsp;<input onClick="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm:ss'})" type="text" value="<?php echo date("Y-m-d H:i:s",$rsNotice['dateline']); ?>" name="dateline" id="dateline">&nbsp;&nbsp;</td>
+  </tr>
+   <tr>
+    <td  align="right"><strong>内容</strong>：</td>
+    <td >&nbsp;<script>oFCKeditor.Create() ;</script>&nbsp;</td>
+  </tr>
+   <tr>
+    <td  align="right"><strong>发布人</strong>：</td>
+    <td >&nbsp;<input type="text" name="sender" id="sender" value="<?php echo $rsNotice['sender'];?>" />&nbsp;&nbsp;</td>
+  </tr>
+  <tr>
+    <td  align="right">&nbsp;</td>
+    <td >&nbsp;<label>
+    <input name="nid" id="nid" type="hidden" value="<?php echo $rsNotice['nid'];?>" />
+      <input id="submitBtn" type="button" name="button" value="提交">
+      </label></td>
+  </tr>
+</table>
+</form>
+    </td>
+  </tr>
+</table>
+<script language="javascript" src="/static/js/jquery-1.7.min.js"></script>
+<script type="text/javascript" src="/static/js/common.js"></script>
+<script type="text/javascript" src="/static/js/My97DatePicker/WdatePicker.js"></script>
+<script language="javascript" src="/static/js/checkform.js"></script>
+<script>
+$(function(){
+	$('#submitBtn').click(function(){
+		$('#appForm').submit();
+		return false;
+	})
+	var options_array = [
+		{ name:"title",simple:"标题",focusMsg:'请输入标题'},
+		{ name:"sender",simple:"发布人",focusMsg:'请输入发布人'}
+	];
+	$("#appForm").valid({items:options_array},'editNotice');
+});
+function editNotice(){
+	
+	var contentObj = FCKeditorAPI.GetInstance('FCKeditor1');
+	content = contentObj.GetXHTML(true);
+    if($.g.getWordsLen(content)<=0){
+		alert('请填写公告内容');
+		return false;
+	}
+	var data = {};
+	data.nid = $("#nid").val();
+	data.title = $("#title").val();
+	data.dateline = $("#dateline").val();
+    data.content = content;
+	data.sender = $("#sender").val();
+	data.method = 'edit';
+    // 转成字符串
+    data = $.param(data);
+    //提交
+    $.ajax({
+        type: "POST",
+        url: "/notice/index/add",
+        data: data,
+        success: function (json) {
+            if (json.success==true) {
+                alert(json.msg);
+				window.location.href = '/notice/';
+            }else{
+				alert(json.msg);
+			}
+        }
+    });
+	return false;
+}
+</script>
+</body>
+</html>

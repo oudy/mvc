@@ -1,0 +1,29 @@
+@charset "utf-8";
+/* CSS Document */
+#mainWrapper{ height:800px; width:960px; background:#FFFFFF }
+
+/*注册表单*/
+.home{ float:right; width:100px; height:32px; line-height:32px; margin-top:45px; font-size:14px; color:#4B95C8; background:url(/static/image/reg-Home-ico.png) left top no-repeat; text-indent:35px; display:block}
+.formReg{ background:url(/static/image/reg_bg.png)  center bottom no-repeat; height:545px; width:960px}
+.regtips{  width:960px; height:169px; background:url(/static/image/regtop.png?v=0826) no-repeat; float:left}
+.regtips p {    color: #666666;   font-size:14PX;  margin-top:120px; height:26px; line-height:26px; float:right; width:250px}
+.regtips p span{ float:left; margin-right:10px}
+.regbtn{ width:183px; height:43px; display: block; background:url(/static/image/spriteHome.png) no-repeat scroll left -520px}
+.regbtn:hover{ background-position:0 -566px}
+
+#reg #headWrap{ height:82px}
+
+
+.form  th{ width:93px; padding: 12px 15px 12px 0;text-align: right;line-height: 23px; vertical-align: top;font-size: 14px;margin-top:0}
+.form th span {    color: #E56C0A;  margin-right: 5px;}
+#reg .inputTxt{ width:250px; height:25px; border:1px solid #B4D1E6; font-size:14px; padding-top:5px}
+#reg .form th{ text-align:left}
+.login_Btn{ width:66px; height: 26px; background:url(/static/image/login_Btn.png) no-repeat; float:left; margin-right:30px; text-indent:-9999em; display:block; }
+.login_Btn:hover{ background-position:left -30px}
+
+
+
+.Correct,.Wrong,.Exp{margin-left:20px;height:20px;line-height:19px;padding:2px 5px 2px 2em;font-size:12px}
+.Correct{background:#e6ffe6 url(/static/image/register.png) 5px 2px no-repeat;border:0px dashed #00a8ff;color:#008800;}
+.Wrong{background:#fff2e9 url(/static/image/register.png) 5px -79px no-repeat;border:0px dashed #ff6600;color:#8b2b34;}
+.Exp{background:#e2f5ff url(/static/image/register.png) 5px -134px no-repeat;border:0px dashed #00a8ff;color:#006699;}

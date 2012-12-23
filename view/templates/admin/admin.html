@@ -1,0 +1,117 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>无标题文档</title>
+<link href="/static/css/right.css" rel="stylesheet" type="text/css" />
+<script type="text/javascript" src="/static/js/table.js"></script>
+</head>
+<body >
+<table  width="100%" border="0" cellpadding="0" cellspacing="0">
+  <tr>
+    <td height="30"><table width="100%" border="0" cellspacing="0" cellpadding="0">
+      <tr>
+        <td height="24" background="/static/image/t_bg.gif" class="STYLE1"><table width="100%" border="0" cellspacing="0" cellpadding="0">
+          <tr>
+            <td><table width="100%" border="0" cellspacing="0" cellpadding="0">
+              <tr>
+                <td width="6%" height="19" valign="bottom"><div class="t_c"><img src="/static/image/tb.gif" width="14" height="14" /></div></td>
+                <td width="94%" valign="bottom">管理员管理 </td>
+              </tr>
+            </table></td>
+            <td><div align="right"><span class="STYLE1">
+              <input type="checkbox" name="checkbox11" id="checkbox11" />
+              全选      &nbsp;&nbsp;</span></div></td>
+          </tr>
+        </table></td>
+      </tr>
+    </table></td>
+  </tr>
+  <tr><td><table class="table" width="100%" border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td width="5%" height="32"></td>
+    <td width="18%"><a href="/admin/index/add"><strong>添加管理员</strong></a></td>
+    <td width="18%"></td>
+    <td width="15%"></td>
+    <td>&nbsp;</td>
+  </tr>
+</table>
+</td></tr>
+  <tr>
+    <td><table  class="table" name="table" id="table" width="100%" border="0" cellpadding="0" cellspacing="1"  >
+      <tr>
+        <th width="4%"   class="STYLE10"><div>ID</div></th>
+         <th width="8%"   ><div>用户名</div></th>
+        <th width="8%"   ><div>email</div></th>
+        <th width="6%"   ><div>工号</div></th>
+        <th width="6%"   ><div>姓名</div></th>
+        <th width="8%"   ><div>电话</div></th>
+        <th width="16%"   ><div>手机</div></th>
+        <th width="8%"   ><div>角色</div></th>
+        <th width="8%"   ><div>状态</div></th>
+        <th width="16%"   ><div>操作</div></th>
+        <th width="14%"   ><div>备注</div></th>
+      </tr>
+  <?php
+foreach($rsAdmin as $key=>$val){
+$val['dateline'] = date('Y-m-d H:i:s',$val['dateline']);
+echo <<<END
+      <tr>
+        <td ><div>
+          {$val['aid']}
+        </div></td>
+        <td   ><div><span >{$val['username']}</span></div></td>
+        <td   ><div><span >{$val['email']}</span></div></td>
+        <td   ><div>{$val['gonghao']}</div></td>
+        <td   ><div>{$val['truename']}</div></td>
+        <td   ><div>{$val['telephone']}</div></td>
+        <td   ><div>{$val['mobile']}</div></td>
+        <td   ><div>{$val['name']}</div></td>
+        <td   ><div>正常</div></td>
+        <td   ><div class="STYLE21"><a class="delete" href="javascript:;">删除</a> | <a href="user_04_ad.html" target="right">修改</a></div></td>
+        <td   ><div>{$val['comment']}</div></td>
+      </tr>
+END;
+}
+?>
+    </table></td>
+  </tr>
+  <tr>
+    <td height="30"><?php echo $pager;?></td>
+  </tr>
+</table>
+<script language="javascript" src="/static/js/jquery-1.7.min.js"></script>
+<script type="text/javascript" src="/static/js/common.js"></script>
+<script>
+$(function(){
+	$('.delete').click(function(){
+		if(!confirm('是否真的确认删除？')){
+		  return false;  
+		}
+		var nid = $(this).attr('data-nid');
+		var data = {};
+		data.nid = nid;
+		data.method = 'delete';
+		data = $.param(data);
+		//提交
+		$.ajax({
+			type: "POST",
+			url: "/notice/index/delete",
+			data: data,
+			success: function (json) {
+				if (json.success==true) {
+					var tr = $("#tr_"+nid);
+					$(tr).hide();
+				}else{
+					alert(json.msg);
+				}
+			}
+		});
+		return false;
+	})
+
+});
+
+</script>
+</body>
+</html>

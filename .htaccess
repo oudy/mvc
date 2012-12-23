@@ -1,0 +1,7 @@
+RewriteEngine On
+RewriteBase /
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteRule ([^/.]*)/?([^/.]*)/?([^/.]*)/?(.*?)(?:/|.html)?$ index.php?__REWRITE_MODULE__=$1&__REWRITE_PHPFILE__=$2&__REWRITE_ACTION__=$3&__REWRITE_PATHINFO__=$4 [L,QSA]
+php_value session.auto_start 0
+

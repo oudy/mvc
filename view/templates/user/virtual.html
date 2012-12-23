@@ -1,0 +1,126 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>无标题文档</title>
+<link href="/static/css/right.css" rel="stylesheet" type="text/css" />
+<script type="text/javascript" src="/static/js/table.js"></script>
+</head>
+<body >
+<table  width="100%" border="0" cellpadding="0" cellspacing="0">
+  <tr>
+    <td height="30"><table width="100%" border="0" cellspacing="0" cellpadding="0">
+      <tr>
+
+        <td height="24" background="/static/image/t_bg.gif" class="STYLE1"><table width="100%" border="0" cellspacing="0" cellpadding="0">
+          <tr>
+            <td><table width="100%" border="0" cellspacing="0" cellpadding="0">
+              <tr>
+                <td width="6%" height="19" valign="bottom"><div class="t_c"><img src="/static/image/tb.gif" width="14" height="14" /></div></td>
+                <td width="94%" valign="bottom"><span class="STYLE1"> 模拟用户</span></td>
+              </tr>
+            </table></td>
+
+            <td><div align="right"><span class="STYLE1">
+              <input type="checkbox" name="checkbox11" id="checkbox11" />
+              全选      &nbsp;&nbsp;</span></div></td>
+          </tr>
+        </table></td>
+      </tr>
+    </table></td>
+  </tr>
+
+  <tr><td><table class="table" width="100%" border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td width="5%" height="32"><strong>查询：</strong></td>
+    <td width="10%">赛程 ：<select name="" size="1">
+      <option>第一周</option>
+      <option>第二周</option>
+    </select></td>
+
+    <td width="18%">时间: <input style="width:70px" name="" type="text" /> - <input style="width:70px" name="" type="text" /></td>
+    <td width="18%">用户名/姓名/模拟账号: <input style="width:80px" name="" type="text" /></td>
+    <td width="18%"><input name="" type="submit" value="查询" /> &nbsp;&nbsp;<input name="" type="reset" value="导出二级关系人资料" /></td>
+    <td>&nbsp;</td>
+  </tr>
+</table>
+</td></tr>
+
+  <tr>
+    <td><table  class="table" name="table" id="table" width="100%" border="0" cellpadding="0" cellspacing="1"  >
+      <tr>
+        <th width="4%"   class="STYLE10"><div>ID</div></th>
+         <th width="8%"   ><div>用户上线</div></th>
+        <th width="8%"   ><div>用户名</div></th>
+        <th width="6%"   ><div><span class="STYLE10">模拟账号</span></div></th>
+
+        <th width="6%"   ><div>姓名</div></th>
+        <th width="6%"   ><div>email</div></th>
+        <th width="6%"   ><div>手机号码</div></th>
+        <th width="8%"   ><div>注册时间</div></th>
+        <th width="8%"   ><div>最后登录时间</div></th>
+        <th width="6%"   ><div>最后登录IP</div></th>
+
+        <th width="8%"   ><div>地区</div></th>
+        <th width="8%"   ><div>是否正式开户</div></th>
+        <th width="6%"   ><div>邀请好友数</div></th>
+        <th width="6%"   ><div>用户电脑 ID</div></th>
+        <th width="6%"   ><div>来源</div></th>
+        <th width="6%"   ><div>关联</div></th>
+
+        <th width="6%"   ><div>操作</div></th>
+      </tr>
+      <?php foreach ($rsUser as $user) {
+                echo <<<EOF
+      <tr>
+        <td>{$user['uid']}</td>
+        <td>{$user['uid']}</td>
+        <td>{$user['username']}</td>
+        <td>{$user['uid']}</td>
+        <td>{$user['truename']}</td>
+        <td>{$user['email']}</td>
+        <td>{$user['mobile']}</td>
+        <td>{$user['uid']}</td>
+        <td>{$user['lastlogintime']}</td>
+        <td>{$user['lastloginip']}</td>
+        <td>{$user['uid']}</td>
+        <td>{$user['uid']}</td>
+        <td>{$user['uid']}</td>
+        <td>{$user['uid']}</td>
+        <td>{$user['uid']}</td>
+        <td>{$user['uid']}</td>
+        <td>{$user['uid']}</td>
+        
+      </tr>
+EOF;
+    }
+    ?>
+    </table></td>
+  </tr>
+  <tr>
+    <td height="30"><table width="100%" border="0" cellspacing="0" cellpadding="0">
+      <tr>
+
+        <td width="33%"><div align="left"><span class="STYLE22">&nbsp;&nbsp;&nbsp;&nbsp;模拟用户总人数666人，当前第<strong> 1</strong> 页，共 <strong>10</strong> 页</span></div></td>
+        <td width="67%"><table width="312" border="0" align="right" cellpadding="0" cellspacing="0">
+          <tr>
+            <td width="49"><div><a href="#"><img src="/static/image/main_54.gif" width="40" height="15" /></a></div></td>
+            <td width="49"><div><a href="#"><img src="/static/image/main_56.gif" width="45" height="15" /></a></div></td>
+
+            <td width="49"><div><a href="#"><img src="/static/image/main_58.gif" width="45" height="15" /></a></div></td>
+            <td width="49"><div><a href="#"><img src="/static/image/main_60.gif" width="40" height="15" /></a></div></td>
+            <td width="37" class="STYLE22"><div>转到</div></td>
+            <td width="22"><div>
+              <input type="text" name="textfield" id="textfield"  style="width:20px; height:12px; font-size:12px; border:solid 1px #7aaebd;"/>
+            </div></td>
+            <td width="22" class="STYLE22"><div>页</div></td>
+            <td width="35"><img src="/static/image/main_62.gif" width="26" height="15" /></td>
+
+          </tr>
+        </table></td>
+      </tr>
+    </table></td>
+  </tr>
+</table>
+</body>
+</html>

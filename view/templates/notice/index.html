@@ -1,0 +1,118 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>无标题文档</title>
+<link href="/static/css/right.css" rel="stylesheet" type="text/css" />
+<script type="text/javascript" src="/static/js/table.js"></script>
+</head>
+<body>
+<table width="100%" border="0" cellpadding="0" cellspacing="0">
+  <tr>
+    <td height="30"><table width="100%" border="0" cellspacing="0" cellpadding="0">
+      <tr>
+        <td height="24" background="/static/image/t_bg.gif" class="STYLE1"><table width="100%" border="0" cellspacing="0" cellpadding="0">
+          <tr>
+            <td><table width="100%" border="0" cellspacing="0" cellpadding="0">
+              <tr>
+                <td width="6%" height="19" valign="bottom"><div class="t_c"><img src="/static/image/tb.gif" width="14" height="14" /></div></td>
+                <td width="94%" valign="bottom"><span class="STYLE1">公告管理</span></td>
+              </tr>
+            </table></td>
+            <td><div align="right"><span class="STYLE1">
+                  &nbsp;&nbsp;</div></td>
+          </tr>
+        </table></td>
+      </tr>
+    </table></td>
+  </tr>
+  <tr><td><table class="table" width="100%" border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td width="10%" height="32"><strong><a href="/notice/index/add" target="right">添加公告</a></strong></td>
+    <td>&nbsp;</td>
+  </tr>
+</table>
+</td></tr>
+  <tr>
+    <td><table  class="table" name="table" id="table" width="100%" border="0" cellpadding="0" cellspacing="1"  >
+      <tr>
+        <th width="4%"   class="STYLE10"><div>
+          ID
+        </div></th>
+        <th width="10%"   ><div><span class="STYLE10">发布时间</span></div></th>
+        <th   ><div><span class="STYLE10">公告标题</span></div></th>
+        <th   ><div><span class="STYLE10">发布人</span></div></th>
+        <th width="27%"   ><div><span class="STYLE10">修改操作</span></div></th>
+      </tr>
+  <?php
+foreach($rsNotice as $key=>$val){
+$val['dateline'] = date('Y-m-d H:i:s',$val['dateline']);
+echo <<<END
+      <tr id="tr_{$val['nid']}" >
+        <td  ><div>
+          {$val['nid']}
+        </div></td>
+        <td   ><div><span >{$val['dateline']}</span></div></td>
+        <td   ><div>{$val['title']}</div></td>
+        <td   ><div>{$val['sender']}</div></td>
+        <td  ><div class="STYLE21"><a class="delete" data-nid="{$val['nid']}" href="javascript:;">删除</a> | <a href="/notice/index/edit/nid/{$val['nid']}" target="right">修改</a> | <a data-content="{$val['content']}" class="look" href="javascript:;" >查看</a></div></td>
+      </tr>
+END;
+}
+?>
+    </table></td>
+  </tr>
+  <tr>
+    <td align="center" height="30"><?php echo $pager;?></td>
+  </tr>
+</table>
+<div style="display:none;" class="aler">
+<div  class="aler_t"><span class="aler_title">{title}</span><a class="aler_close" style="float:right" href="#">关闭</a></div>
+<div class="aler_content" style="padding:10px">{content}</div>
+</div>
+<script language="javascript" src="/static/js/jquery-1.7.min.js"></script>
+<script type="text/javascript" src="/static/js/common.js"></script>
+<script>
+$(function(){
+	$('.delete').click(function(){
+		if(!confirm('是否真的确认删除？')){
+		  return false;  
+		}
+		var nid = $(this).attr('data-nid');
+		var data = {};
+		data.nid = nid;
+		data.method = 'delete';
+		data = $.param(data);
+		//提交
+		$.ajax({
+			type: "POST",
+			url: "/notice/index/delete",
+			data: data,
+			success: function (json) {
+				if (json.success==true) {
+					var tr = $("#tr_"+nid);
+					$(tr).hide();
+				}else{
+					alert(json.msg);
+				}
+			}
+		});
+		return false;
+	})
+	
+	$('.look').click(function(){
+		var content = $(this).attr('data-content');
+        $(".aler .aler_title").html('查看公告');
+		$(".aler .aler_content").html(content);
+		$(".aler").show();
+	})
+	
+	$('.aler .aler_close').click(function(){
+		$(".aler").hide();
+	})
+
+});
+
+</script>
+</body>
+</html>

@@ -1,0 +1,141 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>无标题文档</title>
+<link href="/static/css/right.css" rel="stylesheet" type="text/css" />
+<link rel="stylesheet" type="text/css" href="/static/css/checkform.css"  />
+<script type="text/javascript" src="/static/js/table.js"></script>
+</head>
+<body >
+<table  width="100%" border="0" cellpadding="0" cellspacing="0">
+  <tr>
+    <td height="30"><table width="100%" border="0" cellspacing="0" cellpadding="0">
+      <tr>
+        <td height="24" background="/static/image/t_bg.gif" class="STYLE1"><table width="100%" border="0" cellspacing="0" cellpadding="0">
+          <tr>
+            <td><table width="100%" border="0" cellspacing="0" cellpadding="0">
+              <tr>
+                <td width="6%" height="19" valign="bottom"><div class="t_c"><img src="/static/image/tb.gif" width="14" height="14" /></div></td>
+                <td width="94%" valign="bottom"><span class="STYLE1">添加管理员</span></td>
+              </tr>
+            </table></td>
+            <td><div align="right"></div></td>
+          </tr>
+        </table></td>
+      </tr>
+    </table></td>
+  </tr>
+  <tr>
+    <td>
+<form id="appForm" action="/notice/index/add" method="post" >
+    <table class="table table1" width="100%" border="0" cellpadding="0" cellspacing="1"  >
+  <tr>
+    <td  align="right"><strong>用户名</strong>：</td>
+    <td >&nbsp;<input name="username" type="text" id="username" maxlength="50" />&nbsp;&nbsp;</td>
+  </tr>
+    <tr>
+    <td  align="right"><strong>密码</strong>：</td>
+    <td >&nbsp;<input type="password" name="password" id="password" />&nbsp;&nbsp;</td>
+  </tr>
+   <tr>
+    <td  align="right"><strong>电子邮箱</strong>：</td>
+    <td >&nbsp;<label>
+        <input type="text" name="email" id="email" />
+      </label> &nbsp;</td>
+  </tr>
+   <tr>
+    <td  align="right"><strong>工号</strong>：</td>
+    <td >&nbsp;<input type="text" name="gonghao" id="gonghao" />&nbsp;&nbsp;</td>
+  </tr>
+     <tr>
+    <td  align="right"><strong>姓名</strong>：</td>
+    <td >&nbsp;<input name="truename" type="text" id="truename" maxlength="20" />&nbsp;&nbsp;</td>
+  </tr>
+     <tr>
+    <td  align="right"><strong>电话</strong>：</td>
+    <td >&nbsp;<input type="text" name="telephone" id="telephone" />&nbsp;&nbsp;</td>
+  </tr>
+     <tr>
+    <td  align="right"><strong>手机</strong>：</td>
+    <td >&nbsp;<input type="text" name="mobile" id="mobile" />&nbsp;&nbsp;</td>
+  </tr>
+     <tr>
+    <td  align="right"><strong>角色</strong>：</td>
+    <td >&nbsp;
+      <label>
+        <select name="roleid" id="roleid">
+        <option value="">请选择</option>
+  <?php
+foreach($rsAdminRole as $key=>$val){
+echo <<<END
+          <option vaule="{$val['arid']}">{$val['name']}</option>
+END;
+}
+?>
+        </select>
+      </label>      &nbsp;&nbsp;</td>
+  </tr>
+  <tr>
+    <td  align="right">&nbsp;</td>
+    <td >&nbsp;<label>
+      <input type="submit" name="button" id="button" value="提交" />
+      </label></td>
+  </tr>
+</table>
+</form>
+    </td>
+  </tr>
+</table>
+<script language="javascript" src="/static/js/jquery-1.7.min.js"></script>
+<script type="text/javascript" src="/static/js/common.js"></script>
+<script language="javascript" src="/static/js/checkform.js"></script>
+<script>
+$(function(){
+	$('#submitBtn').click(function(){
+		$('#appForm').submit();
+		return false;
+	})
+	
+	
+	var options_array = [
+	    { name:"username",type:"username",simple:"用户名",focusMsg:'请输入用户名',ajax:{url: '/admin/index/checkUsername',success_msg:'用户名可用',failure_msg:'该用户名已被注册'}},
+		{ name:"password",type:'password',simple:"密码",focusMsg:'请输入6到16位的密码',min:6,max:16},	
+	    { name:"email",type:"mail",simple:"Email",focusMsg:'请输入自己常用的邮箱',require:false},	
+		{ name:"gonghao",simple:"工号",focusMsg:'请输入自己工号',require:false},	
+		{ name:"truename",simple:"姓名",focusMsg:'请输入姓名',require:false},			
+	    { name:"telephone",type:"telephone",simple:"电话",focusMsg:'请输入电话',require:false},	
+	    { name:"mobile",type:"mobile",simple:"手机",focusMsg:'请输入手机',require:false},	
+		{ name:"roleid",simple:"角色",focusMsg:'请选择所属角色'}
+	];
+
+	$("#appForm").valid({items:options_array},'addAdmin');
+});
+function addAdmin(){
+	var data = {};
+	data.title = $("#title").val();
+	data.dateline = $("#dateline").val();
+    data.content = content;
+	data.sender = $("#sender").val();
+	data.method = 'add';
+    // 转成字符串
+    data = $.param(data);
+    //提交
+    $.ajax({
+        type: "POST",
+        url: "/admin/index/add",
+        data: data,
+        success: function (json) {
+            if (json.success==true) {
+                alert(json.msg);
+				window.location.href = '/admin/';
+            }else{
+				alert(json.msg);
+			}
+        }
+    });
+	return false;
+}
+</script>
+</body>
+</html>
